@@ -47,4 +47,12 @@ Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
 ## 🤝 Contribuciones
 ¡Las contribuciones son bienvenidas! Si tienes ideas o mejoras, siéntete libre de abrir un issue o enviar un pull request.
 
+## 📝 Licencia
+
+Este proyecto está licenciado bajo la **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)**.
+
+- **Uso personal**: Puedes utilizar el software para fines personales o educativos.
+- **No comercial**: No se permite el uso comercial del software bajo ninguna circunstancia.
+- **No modificaciones**: No se permite la redistribución ni la creación de obras derivadas basadas en este software salvo autorazación previa.
+
 
