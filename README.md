@@ -27,29 +27,29 @@ Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
    cd wordpress-article-generator
    
 2. **Configurar el repositorio**
-   Configura las Workflow permissions para que puedan leer y escribir:
-   Entra en Settings >> Actions -> Workflow permissions y selecciona Read and write permissions
+   - Configura las Workflow permissions para que puedan leer y escribir:
+   - Entra en Settings >> Actions -> Workflow permissions y selecciona Read and write permissions
 
 3. **Configura los secretos**
-   Configura los secretos de las Actions para que se puedan ejecutar de manera correcta. Entra en Settings >> Secrets and variables >> Actions y añade los siguientes secretos:
-   WORDPRESS_URL=https://tudominio.com/wp-json/wp/v2/posts
-   WORDPRESS_TOKEN=XXXX XXXX XXXX XXXX XXXX XXXX
-   WORDPRESS_USERNAME=username
-   GEMINI_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-   RSS_URL=https://undominio.com/feed
+   - Configura los secretos de las Actions para que se puedan ejecutar de manera correcta. Entra en Settings >> Secrets and variables >> Actions y añade los siguientes secretos:
+   - WORDPRESS_URL=https://tudominio.com/wp-json/wp/v2/posts
+   - WORDPRESS_TOKEN=XXXX XXXX XXXX XXXX XXXX XXXX
+   - WORDPRESS_USERNAME=username
+   - GEMINI_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   - RSS_URL=https://undominio.com/feed
 
 ## 🧠 Recursos adicionales
 
-  [¿Cómo crear una aplicación en WordPress?](https://wordpress.com/es/support/seguridad/autenticacion-en-dos-pasos/application-specific-passwords/)
-  [¿Cómo conseguir la API key de Gemini?](https://docs.aicontentlabs.com/es/articulos/clave-api-google-gemini/)
-  [¿Cómo conseguir el RSS feed de una página?](https://rss.com/blog/como-encontrar-un-feed-rss/#:~:text=En%20el%20c%C3%B3digo%20HTML%20se,entre%20comillas%20despu%C3%A9s%20de%20href%3D.)
+  - [¿Cómo crear una aplicación en WordPress?](https://wordpress.com/es/support/seguridad/autenticacion-en-dos-pasos/application-specific-passwords/)
+  - [¿Cómo conseguir la API key de Gemini?](https://docs.aicontentlabs.com/es/articulos/clave-api-google-gemini/)
+  - [¿Cómo conseguir el RSS feed de una página?](https://rss.com/blog/como-encontrar-un-feed-rss/#:~:text=En%20el%20c%C3%B3digo%20HTML%20se,entre%20comillas%20despu%C3%A9s%20de%20href%3D.)
 
 ## 🤝 Contribuciones
-¡Las contribuciones son bienvenidas! Si tienes ideas o mejoras, siéntete libre de abrir un issue o enviar un pull request.
+- ¡Las contribuciones son bienvenidas! Si tienes ideas o mejoras, siéntete libre de abrir un issue o enviar un pull request.
 
 ## 📝 Licencia
 
-Este proyecto está licenciado bajo la **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)**.
+- Este proyecto está licenciado bajo la **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)**.
 
 - **Uso personal**: Puedes utilizar el software para fines personales o educativos.
 - **No comercial**: No se permite el uso comercial del software bajo ninguna circunstancia.
