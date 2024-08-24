@@ -4,7 +4,6 @@ import os
 import json
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
-from textblob import TextBlob 
 import google.generativeai as genai
 import base64
 import random
