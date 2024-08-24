@@ -65,7 +65,7 @@ def search_unsplash_image(keywords):
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
-        if data['results']:
+        if data['results'][0]:
             return data['results'][0]['urls']['full']
     return None
 
