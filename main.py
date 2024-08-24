@@ -148,8 +148,8 @@ def process_feed_entry(entry, saved_entries):
         print("Texto SEO optimizado: ", seo_optimized_text)
 
         # Obtener los elementos SEO
-        if 'clave: ' in seo_optimized_text:
-            keywords = seo_optimized_text.replace("*", ' ').split('clave: ')[1]
+        if 'clave:' in seo_optimized_text:
+            keywords = seo_optimized_text.replace("*", ' ').split('clave:')[1]
             keywords = keywords.replace('.', '')
         if 'tulo:' in seo_optimized_text:
             title = seo_optimized_text.replace('#', '').replace('*', '').split('tulo:')[1]
