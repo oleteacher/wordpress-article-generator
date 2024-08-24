@@ -4,6 +4,7 @@ import os
 import json
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
+from textblob import TextBlob 
 import google.generativeai as genai
 import base64
 import random
@@ -43,8 +44,22 @@ def fetch_article_content(url):
     contents = soup.select('div.group')
     return "\n".join([content.get_text() for content in contents])
 
-def find_unsplash_image(keyword):
-    query = keyword.replace(' ', '+')
+def find_unsplash_image(keywords):
+    # Traducir la palabra clave a inglés
+    blob = TextBlob(keywords)
+    keywords = str(blob.translate(to='en'))
+    keywords = keywords.split(',')
+
+    # Buscar una imagen en Unsplash hasta encontrar una que coincida con las palabras clave
+    image_url = None
+    i = 0
+    while not image_url and i < len(keywords):
+        image_url = search_unsplash_image(keywords[i])
+        i += 1
+    return image_url
+
+def search_unsplash_image(keywords):
+    query = keywords.replace(' ', '+')
     url = f"https://api.unsplash.com/search/photos?query={query}&orientation=landscape&client_id=apQpOGqco6XHKd01ojCMu5H-qqGCErP1UHL5iivhxGA"
     response = requests.get(url)
     if response.status_code == 200:
@@ -54,6 +69,7 @@ def find_unsplash_image(keyword):
             random_number = random.randint(0, 9)
             return data['results'][random_number]['urls']['full']
     return None
+
 
 def download_image(image_url):
     response = requests.get(image_url)
@@ -133,8 +149,9 @@ def process_feed_entry(entry, saved_entries):
 
         # Obtener los elementos SEO
         if 'clave:' in seo_optimized_text:
-            keywords = seo_optimized_text.replace('#', '').replace('*', '').split('clave:')[1]
-            keywords = keywords.split(',')[0]
+            keywords = seo_optimized_text.split('clave:')[1]
+            keywords = keywords.split('**')[1]
+            keywords = keywords.replace('.', '')
         if 'tulo:' in seo_optimized_text:
             title = seo_optimized_text.replace('#', '').replace('*', '').split('tulo:')[1]
             if 'slug' in title:
