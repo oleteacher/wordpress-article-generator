@@ -141,16 +141,17 @@ def process_feed_entry(entry, saved_entries):
         print("Texto traducido: ", translated_text.candidates[0].content.parts[0].text)
 
         # Optimizar el contenido para SEO
-        seo_optimized_text = model.generate_content("Imagina que eres un experto en posicionamiento SEO y tu compañero de traducción te ha pasado un artículo. Compruebas que el artículo parece estar bien pero que no esta optimizado para posicionarse de manera correcta. Entonces te pones manos a la obra y decides optimizar el artículo. Para ello haces uso de las reglas básicas de SEO y legibilidad. Primero seleccionas solo 1 palabra clave, y te aseguras de que aparezcan el título, al menos 4 veces a lo largo del artículo y más de uno de los subtítulos. No incluyas enlaces, nunca. Más tarde diseñas el título, el slug y la meta descripción, todos deben contener la o las palabras clave y no ser demasiado largos, ya que es perjudicial. Por último te aseguras de que la legibilidad sea correcta y entre otra medidas sigues la regla del 25, que consiste en que no más del 25% de las frases, pueden contener más de 25 palabras, es decir acorta las frases si es necesario. Además, no puede haber más de 300 palabras entre subtítulo y subtítulo. Una vez finalizado, respetarás el formato markdown de tu compañero de traducción e incluirás una pequeñas lista al final del artículo con la o las palabras clave, el título, el slug y la meta descripción. No uses dos puntos al final de los subtítulos. Aquí tienes el artículo, que no se te olvide ningún paso ni dejes el texto por la mitad: " + translated_text.candidates[0].content.parts[0].text)
+        seo_optimized_text = model.generate_content("Imagina que eres un experto en posicionamiento SEO y tu compañero de traducción te ha pasado un artículo. Compruebas que el artículo parece estar bien pero que no esta optimizado para posicionarse de manera correcta. Entonces te pones manos a la obra y decides optimizar el artículo. Para ello haces uso de las reglas básicas de SEO y legibilidad. Primero seleccionas unas palabras clave, y te aseguras de que aparezcan el título, al menos 4 veces a lo largo del artículo y más de uno de los subtítulos. No incluyas enlaces, nunca. Más tarde diseñas el título, el slug y la meta descripción, todos deben contener la o las palabras clave y no ser demasiado largos, ya que es perjudicial. Por último te aseguras de que la legibilidad sea correcta y entre otra medidas sigues la regla del 25, que consiste en que no más del 25% de las frases, pueden contener más de 25 palabras, es decir acorta las frases si es necesario. Además, no puede haber más de 300 palabras entre subtítulo y subtítulo. Una vez finalizado, respetarás el formato markdown de tu compañero de traducción e incluirás una pequeñas lista al final del artículo con la o las palabras clave, el título, el slug y la meta descripción. No uses dos puntos al final de los subtítulos. Aquí tienes el artículo, que no se te olvide ningún paso ni dejes el texto por la mitad: " + translated_text.candidates[0].content.parts[0].text)
 
         # Elimina los hastags y asteriscos del texto
         seo_optimized_text = seo_optimized_text.candidates[0].content.parts[0].text
         print("Texto SEO optimizado: ", seo_optimized_text)
 
         # Obtener los elementos SEO
-        if 'clave:**' in seo_optimized_text:
+        if 'clave:' in seo_optimized_text:
             keywords = seo_optimized_text.split('clave:**')[1]
             keywords = keywords.split('**')[0]
+            keywords = keywords.replace('.', '')
         if 'tulo:' in seo_optimized_text:
             title = seo_optimized_text.replace('#', '').replace('*', '').split('tulo:')[1]
             if 'slug' in title:
