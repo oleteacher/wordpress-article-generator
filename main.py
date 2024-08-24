@@ -154,7 +154,7 @@ def process_feed_entry(entry, saved_entries):
         # Subir la imagen a WordPress
         hed = header(username,token) #username, application password                       
         id = upload_image_to_wordpress('images/image.jpg', 'https://alexcerezo.es/',hed, title, keywords)
-        print("Imagen subida a WordPress.")
+        print("Imagen subida a WordPress")
 
         # Generar contenido HTML
         model = genai.GenerativeModel('gemini-1.5-pro')
