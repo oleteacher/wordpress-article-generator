@@ -45,10 +45,7 @@ def fetch_article_content(url):
     return "\n".join([content.get_text() for content in contents])
 
 def find_unsplash_image(keywords):
-    # Traducir la palabra clave a inglés
-    blob = TextBlob(keywords)
-    keywords = str(blob.translate(to='en'))
-    keywords = keywords.split(',')
+    keywords = keywords.split(', ')
 
     # Buscar una imagen en Unsplash hasta encontrar una que coincida con las palabras clave
     image_url = None
