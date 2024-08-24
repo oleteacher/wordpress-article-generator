@@ -95,19 +95,13 @@ def upload_image_to_wordpress(image_path, site_url, headers, alt_text, title):
             print(f"Error uploading image: {response.status_code} - {response.text}")
             return None
 
-def create_wordpress_post(title, content, meta_description, slug, keywords, id):
+def create_wordpress_post(title, content, slug, keywords, id):
     post_data = {
         'title': title,
         'content': content,
         'status': 'publish', # Cambiar a 'publish' para publicar el post y 'draft' para guardarlo como borrador
-        'meta_description': meta_description,
         'slug': slug,
         'featured_media': id,
-        'meta': {
-            '_yoast_wpseo_title': title,
-            '_yoast_wpseo_metadesc': meta_description,
-            '_yoast_wpseo_focuskw': keywords
-        }
     }
     response = requests.post(wordpress_url, json=post_data, auth=(username, token))
     if response.status_code == 201:
@@ -138,15 +132,19 @@ def process_feed_entry(entry, saved_entries):
         print("Texto SEO optimizado: ", seo_optimized_text)
 
         # Obtener los elementos SEO
-        keywords = seo_optimized_text.replace('#', '').replace('*', '').split('Palabras clave:')[1]
-        keywords = keywords.split(',')[0]
-        title = seo_optimized_text.replace('#', '').replace('*', '').split('Título:')[1]
-        title = title.split('Slug:')[0]
-        slug = seo_optimized_text.replace('#', '').replace('*', '').split('Slug:')[1]
-        slug = slug.split('Meta')[0]
-        meta_description = seo_optimized_text.replace('#', '').split('escripción:**')[1]
-        meta_description = meta_description.split('Palabras clave:')[0]
-        print("SEO items: ", keywords, title, slug, meta_description)
+        if 'clave:' in seo_optimized_text:
+            keywords = seo_optimized_text.replace('#', '').replace('*', '').split('clave:')[1]
+            keywords = keywords.split(',')[0]
+        if 'tulo:' in seo_optimized_text:
+            title = seo_optimized_text.replace('#', '').replace('*', '').split('tulo:')[1]
+            if 'slug' in title:
+                title = title.split('slug')[0]
+            if 'Slug' in title:
+                title = title.split('Slug')[0]
+        if 'lug:' in seo_optimized_text:
+            slug = seo_optimized_text.replace('#', '').replace('*', '').split('lug:')[1]
+            slug = slug.split(' ')[0]
+        print("SEO items: ", keywords, title, slug)
 
         # Descargar imagen de Unsplash
         image_url = find_unsplash_image(keywords)
@@ -171,7 +169,7 @@ def process_feed_entry(entry, saved_entries):
         article = '<div><img src="' + image_url + '" alt="' + title + '" style="width: 100%;">' + formatted_html_text.candidates[0].content.parts[0].text.replace('#', '').replace('*', '') + '<p><strong><a href="' + entry.link + '">Fuente</a></strong></p></div>'
         
         # Crear el post en WordPress
-        if create_wordpress_post(title, article, meta_description, slug, keywords, id):
+        if create_wordpress_post(title, article, slug, keywords, id):
             saved_entries.append(entry.id)
             save_entries(feed_file, saved_entries)
     else:
