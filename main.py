@@ -2,6 +2,7 @@ import feedparser
 import requests
 import os
 import json
+from translate import Translator
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 import google.generativeai as genai
@@ -44,6 +45,9 @@ def fetch_article_content(url):
     return "\n".join([content.get_text() for content in contents])
 
 def find_unsplash_image(keywords):
+    #Traducir las palabras a ingles
+    translator = Translator(to_lang="en")
+    keywords = translator.translate(keywords)
     keywords = keywords.split(', ')
 
     # Buscar una imagen en Unsplash hasta encontrar una que coincida con las palabras clave
