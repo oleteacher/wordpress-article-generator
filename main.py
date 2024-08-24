@@ -66,9 +66,7 @@ def search_unsplash_image(keywords):
     if response.status_code == 200:
         data = response.json()
         if data['results']:
-            # Numero random entre 0 y 9
-            random_number = random.randint(0, 9)
-            return data['results'][random_number]['urls']['full']
+            return data['results'][0]['urls']['full']
     return None
 
 
