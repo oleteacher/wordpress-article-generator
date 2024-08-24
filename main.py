@@ -50,9 +50,10 @@ def find_unsplash_image(keywords):
     image_url = None
     i = 0
     while not image_url and i < len(keywords):
+        keyword = keywords[i]
         image_url = search_unsplash_image(keywords[i])
         i += 1
-    return image_url
+    return image_url + '***' + keyword
 
 def search_unsplash_image(keywords):
     query = keywords.replace(' ', '+')
@@ -107,7 +108,7 @@ def upload_image_to_wordpress(image_path, site_url, headers, alt_text, title):
             print(f"Error uploading image: {response.status_code} - {response.text}")
             return None
 
-def create_wordpress_post(title, content, slug, keywords, id):
+def create_wordpress_post(title, content, slug, id):
     post_data = {
         'title': title,
         'content': content,
@@ -148,25 +149,28 @@ def process_feed_entry(entry, saved_entries):
             keywords = seo_optimized_text.split('clave:**')[1]
             keywords = keywords.split('**')[0]
             keywords = keywords.replace('.', '')
-        if 'tulo:' in seo_optimized_text:
-            title = seo_optimized_text.replace('#', '').replace('*', '').split('tulo:')[1]
-            if 'slug' in title:
-                title = title.split('slug')[0]
-            if 'Slug' in title:
-                title = title.split('Slug')[0]
-        if 'lug:' in seo_optimized_text:
-            slug = seo_optimized_text.replace('#', '').replace('*', '').split('lug:')[1]
+        if 'tulo:**' in seo_optimized_text:
+            title = seo_optimized_text.split('tulo:**')[1]
+            title = title.split('**')[0]
+        if 'slug' in seo_optimized_text:
+            slug = seo_optimized_text.split('slug:**')[1]
+            slug = slug.split(' ')[0]
+        if 'Slug' in seo_optimized_text:
+            slug = seo_optimized_text.split('Slug:**')[1]
             slug = slug.split(' ')[0]
         print("SEO items: ", keywords, title, slug)
 
         # Descargar imagen de Unsplash
         image_url = find_unsplash_image(keywords)
+        keyword = image_url.split('***')[1]
+        image_url = image_url.split('***')[0]
+
         download_image(image_url)
         print("Imagen descargada.")
 
         # Subir la imagen a WordPress
         hed = header(username,token) #username, application password                       
-        id = upload_image_to_wordpress('images/image.jpg', 'https://alexcerezo.es/',hed, title, keywords)
+        id = upload_image_to_wordpress('images/image.jpg', 'https://alexcerezo.es/',hed, title, keyword)
         print("Imagen subida a WordPress")
 
         # Generar contenido HTML
@@ -182,7 +186,7 @@ def process_feed_entry(entry, saved_entries):
         article = '<div><img src="' + image_url + '" alt="' + title + '" style="width: 100%;">' + formatted_html_text.candidates[0].content.parts[0].text.replace('#', '').replace('*', '') + '<p><strong><a href="' + entry.link + '">Fuente</a></strong></p></div>'
         
         # Crear el post en WordPress
-        if create_wordpress_post(title, article, slug, keywords, id):
+        if create_wordpress_post(title, article, slug, id):
             saved_entries.append(entry.id)
             save_entries(feed_file, saved_entries)
     else:
