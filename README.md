@@ -53,6 +53,6 @@ Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
 
 - **Uso personal**: Puedes utilizar el software para fines personales o educativos.
 - **No comercial**: No se permite el uso comercial del software bajo ninguna circunstancia.
-- **No modificaciones**: No se permite la redistribución ni la creación de obras derivadas basadas en este software salvo autorazación previa.
+- **No modificaciones**: No se permite la redistribución ni la creación de obras derivadas basadas en este software salvo autorazación previa. Si se permite la creación de modificaciones, pero no su distribución. 
 
 
